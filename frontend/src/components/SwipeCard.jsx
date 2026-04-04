@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 
+const BACKEND = (import.meta.env.VITE_API_URL || "https://startupswap.onrender.com/api").replace("/api", "");
+
 const THRESHOLD = 90;
 
 const ROLE_CFG = {
@@ -253,7 +255,7 @@ export default function SwipeCard({ user, onSwipeLeft, onSwipeRight, onSuperLike
                 </a>
               )}
               {user.resumeUrl && (
-                <a href={`http://localhost:5000${user.resumeUrl}`} target="_blank" rel="noopener noreferrer"
+                <a href={`${BACKEND}${user.resumeUrl}`} target="_blank" rel="noopener noreferrer"
                   onMouseDown={(e) => e.stopPropagation()}
                   className="bg-violet-50 text-violet-600 text-xs font-semibold px-3 py-2 rounded-xl hover:bg-violet-100 transition flex items-center gap-1.5">
                   📄 Resume

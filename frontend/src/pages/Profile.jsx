@@ -3,7 +3,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API     = import.meta.env.VITE_API_URL || "https://startupswap.onrender.com/api";
+const BACKEND = API.replace("/api", "");
 
 const SKILLS = [
   "React", "Node.js", "Python", "ML/AI", "Product", "Design",
@@ -271,7 +272,7 @@ export default function Profile() {
                     {user.linkedin  && <a href={user.linkedin}  target="_blank" rel="noreferrer" className="text-xs bg-blue-50    text-blue-600    px-3 py-1.5 rounded-xl font-semibold hover:bg-blue-100    transition">LinkedIn 🔗</a>}
                     {user.github    && <a href={user.github}    target="_blank" rel="noreferrer" className="text-xs bg-slate-100  text-slate-700   px-3 py-1.5 rounded-xl font-semibold hover:bg-slate-200  transition">GitHub 🐙</a>}
                     {user.website   && <a href={user.website}   target="_blank" rel="noreferrer" className="text-xs bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl font-semibold hover:bg-emerald-100 transition">Website 🌐</a>}
-                    {user.resumeUrl && <a href={`http://localhost:5000${user.resumeUrl}`} target="_blank" rel="noreferrer" className="text-xs bg-violet-50 text-violet-700 px-3 py-1.5 rounded-xl font-semibold hover:bg-violet-100 transition">Resume 📄</a>}
+                    {user.resumeUrl && <a href={`${BACKEND}${user.resumeUrl}`} target="_blank" rel="noreferrer" className="text-xs bg-violet-50 text-violet-700 px-3 py-1.5 rounded-xl font-semibold hover:bg-violet-100 transition">Resume 📄</a>}
                   </div>
                 </div>
               )}

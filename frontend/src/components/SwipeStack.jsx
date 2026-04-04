@@ -3,7 +3,7 @@ import axios from "axios";
 import SwipeCard from "./SwipeCard";
 import MatchModal from "./MatchModal";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API = import.meta.env.VITE_API_URL || "https://startupswap.onrender.com/api";
 
 export default function SwipeStack({ roleFilter = "", onStarred }) {
   const [cards, setCards]           = useState([]);

@@ -3,7 +3,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import ProfileBadge from "../components/ProfileBadge";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API     = import.meta.env.VITE_API_URL || "https://startupswap.onrender.com/api";
+const BACKEND = API.replace("/api", "");
 
 const ROLE_GRADIENTS = {
   founder:      "from-violet-500 to-purple-600",
@@ -127,7 +128,7 @@ function DetailModal({ selected, onClose }) {
               </a>
             )}
             {selected.resumeUrl && (
-              <a href={`http://localhost:5000${selected.resumeUrl}`} target="_blank" rel="noopener noreferrer"
+              <a href={`${BACKEND}${selected.resumeUrl}`} target="_blank" rel="noopener noreferrer"
                 className="bg-violet-50 text-violet-600 text-xs font-semibold px-3 py-2 rounded-xl hover:bg-violet-100 transition">
                 📄 Resume
               </a>
