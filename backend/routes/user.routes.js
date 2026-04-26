@@ -1,7 +1,7 @@
 const express = require("express");
 const multer  = require("multer");
 const path    = require("path");
-const { getProfile, updateProfile, getMatches, getAllUsers } =
+const { getProfile, updateProfile, getMatches, getAllUsers, getStats } =
   require("../controllers/user.controller");
 const { protect } = require("../middleware/auth.middleware");
 
@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
+router.get("/stats",        getStats);
 router.get("/all",          protect, getAllUsers);
 router.get("/matches",      protect, getMatches);
 router.get("/profile/:id",  protect, getProfile);

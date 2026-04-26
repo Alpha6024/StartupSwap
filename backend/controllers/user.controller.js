@@ -71,4 +71,28 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateProfile, getMatches, getAllUsers };
+// ── GET /api/users/stats ─────────────────────────────────
+const getStats = async (req, res) => {
+  try {
+    const [totalUsers, founders, investors, mentors, startups, matchesAgg] = await Promise.all([
+      User.countDocuments({ isActive: true }),
+      User.countDocuments({ isActive: true, role: "founder" }),
+      User.countDocuments({ isActive: true, role: "investor" }),
+      User.countDocuments({ isActive: true, role: "mentor" }),
+      User.countDocuments({ isActive: true, startupName: { $ne: "" } }),
+      User.aggregate([{ $project: { matchCount: { $size: "$matches" } } }, { $group: { _id: null, total: { $sum: "$matchCount" } } }]),
+    ]);
+    res.json({
+      totalUsers,
+      founders,
+      investors,
+      mentors,
+      startups,
+      matches: matchesAgg[0] ? Math.floor(matchesAgg[0].total / 2) : 0,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getProfile, updateProfile, getMatches, getAllUsers, getStats };
