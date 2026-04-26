@@ -3,17 +3,16 @@ import axios from "axios";
 import SwipeCard from "./SwipeCard";
 import MatchModal from "./MatchModal";
 
-const API = import.meta.env.VITE_API_URL || "https://startupswap.onrender.com/api";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
-export default function SwipeStack({ roleFilter = "", onStarred }) {
-  const [cards, setCards]           = useState([]);
-  const [allCards, setAllCards]     = useState([]);
-  const [loading, setLoading]       = useState(true);
+export default function SwipeStack({ roleFilter = "", onStarred, endpoint = "feed" }) {
+  const [cards, setCards]             = useState([]);
+  const [allCards, setAllCards]       = useState([]);
+  const [loading, setLoading]         = useState(true);
   const [matchedUser, setMatchedUser] = useState(null);
 
-  useEffect(() => { fetchFeed(); }, []);
+  useEffect(() => { fetchFeed(); }, [endpoint]);
 
-  // Apply role filter whenever it changes
   useEffect(() => {
     if (!roleFilter) setCards(allCards);
     else setCards(allCards.filter((c) => c.role === roleFilter));
@@ -22,7 +21,7 @@ export default function SwipeStack({ roleFilter = "", onStarred }) {
   const fetchFeed = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${API}/swipe/feed`);
+      const { data } = await axios.get(`${API}/swipe/${endpoint}`);
       setAllCards(data);
       setCards(data);
     } catch (err) {

@@ -96,4 +96,23 @@ const swipeLeft = async (req, res) => {
   }
 };
 
-module.exports = { getFeed, swipeRight, swipeLeft };
+// ── GET /api/swipe/all ────────────────────────────────────
+const getAllUsers = async (req, res) => {
+  try {
+    const me = await User.findById(req.user._id);
+
+    const users = await User.find({
+      _id:      { $ne: me._id },
+      isActive: true,
+    })
+      .select("-password -swipedLeft -swipedRight")
+      .limit(100);
+
+    const shuffled = users.sort(() => Math.random() - 0.5);
+    res.json(shuffled);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { getFeed, swipeRight, swipeLeft, getAllUsers };
