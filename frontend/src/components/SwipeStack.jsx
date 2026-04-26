@@ -18,10 +18,12 @@ export default function SwipeStack({ roleFilter = "", onStarred, endpoint = "fee
     else setCards(allCards.filter((c) => c.role === roleFilter));
   }, [roleFilter, allCards]);
 
-  const fetchFeed = async () => {
+  const fetchFeed = async (reset = false) => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${API}/swipe/${endpoint}`);
+      // On refresh, always use /all so previously passed users reappear
+      const url = reset ? `${API}/swipe/all` : `${API}/swipe/${endpoint}`;
+      const { data } = await axios.get(url);
       setAllCards(data);
       setCards(data);
     } catch (err) {
@@ -82,7 +84,7 @@ export default function SwipeStack({ roleFilter = "", onStarred, endpoint = "fee
           </p>
         </div>
         <button
-          onClick={fetchFeed}
+          onClick={() => fetchFeed(true)}
           className="bg-gradient-to-r from-violet-600 to-pink-600 text-white px-6 py-3 rounded-2xl font-bold hover:opacity-90 transition shadow-md"
         >
           Refresh Feed 🔄

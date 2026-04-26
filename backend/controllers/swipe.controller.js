@@ -32,19 +32,17 @@ const getFeed = async (req, res) => {
 };
 
 // ── GET /api/swipe/all ────────────────────────────────────
+// Returns ALL users except self, shuffled — ignores swipe/like/reject history
 const getAllUsers = async (req, res) => {
   try {
-    const me = await User.findById(req.user._id);
-
     const users = await User.find({
-      _id:      { $ne: me._id },
+      _id:      { $ne: req.user._id },
       isActive: true,
     })
       .select("-password -swipedLeft -swipedRight -pendingRequests")
       .limit(100);
 
-    const shuffled = users.sort(() => Math.random() - 0.5);
-    res.json(shuffled);
+    res.json(users.sort(() => Math.random() - 0.5));
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
