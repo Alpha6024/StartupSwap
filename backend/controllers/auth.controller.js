@@ -28,6 +28,7 @@ const safeUser = (u) => ({
   matches:    u.matches,
   swipedRight:u.swipedRight,
   swipedLeft: u.swipedLeft,
+  pendingRequests: u.pendingRequests,
   createdAt:  u.createdAt,
 });
 

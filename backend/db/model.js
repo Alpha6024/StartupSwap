@@ -48,9 +48,10 @@ const userSchema = new mongoose.Schema(
     website:  { type: String, default: "" },
 
     // Swipe tracking
-    swipedRight: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    swipedLeft:  [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    matches:     [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    swipedRight:      [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    swipedLeft:       [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    matches:          [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    pendingRequests:  [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 
     isActive:   { type: Boolean, default: true },
   },

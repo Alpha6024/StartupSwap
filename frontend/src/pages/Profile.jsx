@@ -124,9 +124,9 @@ export default function Profile() {
         {/* Stats card — overlapping */}
         <div className="mx-4 -mt-10 bg-white rounded-2xl shadow-lg px-4 py-4 flex justify-around relative z-10">
           {[
-            { label: "Matches", value: user?.matches?.length },
-            { label: "Liked",   value: user?.swipedRight?.length },
-            { label: "Passed",  value: user?.swipedLeft?.length },
+            { label: "Matches",  value: user?.matches?.length },
+            { label: "Liked",    value: user?.swipedRight?.length },
+            { label: "Requests", value: user?.pendingRequests?.length },
           ].map(({ label, value }) => (
             <div key={label} className="text-center">
               <p className="text-2xl font-black text-slate-800">{value ?? 0}</p>

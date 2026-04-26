@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-const API = import.meta.env.VITE_API_URL || "https://startupswap.onrender.com/api";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const AuthContext = createContext(null);
 
@@ -61,8 +61,15 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const refreshUser = async () => {
+    try {
+      const { data } = await axios.get(`${API}/auth/me`);
+      setUser(data);
+    } catch {}
+  };
+
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, setUser }}>
+    <AuthContext.Provider value={{ user, token, loading, login, register, logout, setUser, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
